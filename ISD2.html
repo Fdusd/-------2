@@ -1,20 +1,17 @@
-<!-- ISD2.html (Обо мне) -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Обо мне | Личный сайт</title>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <input type="checkbox" id="menu-toggle">
         <label for="menu-toggle" class="burger">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </label>
         <nav>
             <ul>
@@ -26,55 +23,14 @@
         </nav>
     </header>
 
-    <main> 
-        <section>
-            <h1>Обо мне</h1>
-        </section>
-        
-        <section class="about-content">
-            <p>Я студент. И я <strong>изучаю программирование</strong>.</p>  
-            <p>Мне нравится изучать веб-технологии и писать код.</p>
-            <p>Сейчас я активно учу <em>HTML, CSS и C#</em>. 
-                <br>Стараюсь практиковаться и делать небольшие проекты.
-            </p>
-            <p>Мой опыт растет &lt; каждый месяц, а мотивация &gt; лени.</p>
-            
-            <div class="quote-block">
-                <blockquote>
-                    <em>"Код сам себя не напишет. Садись и делай."</em>
-                </blockquote>
-            </div>
-        </section>
-
-        <section>
-            <h2>Мои достижения</h2>
-            <div class="achievements">
-                <div class="achievement-card">
-                    <span class="achieve-num">5+</span>
-                    <p>Завершённых проектов</p>
-                </div>
-                <div class="achievement-card">
-                    <span class="achieve-num">100+</span>
-                    <p>Часов кода</p>
-                </div>
-                <div class="achievement-card">
-                    <span class="achieve-num">3</span>
-                    <p>Языка программирования</p>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>Скачать резюме</h2>
-            <p>
-                <a href="Kiwi.jpg" download class="download-btn">📄 Скачать резюме (JPG)</a>
-            </p>
-        </section>            
+    <main>
+        <section><h1>Обо мне</h1></section>
+        <section class="about-content"><div id="about-content"></div></section>
+        <section><h2>Мои достижения</h2><div id="about-achievements"></div></section>
+        <section><h2>Скачать резюме</h2><div id="resume-download"></div></section>
     </main>
 
-    <footer>
-        <p>2026 © Ну работает и ладно</p>
-    </footer> 
-    <script src="script.js"></script>   
+    <footer><p>2026 © Ну работает и ладно</p></footer>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>

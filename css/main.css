@@ -680,3 +680,15 @@ section {
         transition-duration: 0.01ms !important;
     }
 }
+.photo-figure img,
+.profile-img,
+#photo-section img {
+    width: 100%;
+    max-width: 250px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 0; /* убираем скругление для строгого квадрата */
+    display: block;
+    margin: 0 auto;
+    border: 3px solid var(--main-color);
+}

@@ -1,20 +1,17 @@
-<!-- contacts.html -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Контакты | Личный сайт</title>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <input type="checkbox" id="menu-toggle">
         <label for="menu-toggle" class="burger">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </label>
         <nav>
             <ul>
@@ -26,71 +23,14 @@
         </nav>
     </header>
 
-    <main> 
-        <section>
-            <h1>Контакты</h1>
-        </section>
-        
-        <section>
-            <h2>Форма обратной связи</h2>
-            <form id="contactForm">
-                <div class="form-group">
-                    <label>ФИО</label>
-                    <input type="text" id="fio" placeholder="Иванов Иван Иванович">
-                </div>
-                <div class="form-group">
-                    <label>Телефон</label>
-                    <input type="tel" id="phone" placeholder="+7 900 123-45-67">
-                </div>
-                <div class="form-group">
-                    <label>Дата</label>
-                    <input type="date" id="date">
-                </div>
-                <div class="form-group">
-                    <label>Фото</label>
-                    <input type="file" accept="image/jpeg, image/png, image/gif, image/webp" id="photo">
-                    <img id="preview" width="100" class="preview-img">
-                </div>
-                <button type="submit">Отправить</button>
-            </form>
-            <div id="modal" class="modal">
-                <div class="modal-content">
-                    <p>✅ Спасибо за отправку!</p>
-                    <button onclick="closeModal()">Закрыть</button>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>Контактная информация</h2>
-            <ul class="contacts-list">
-                <li>📞 Номер: +7 904 491-72-40</li>
-                <li>✉️ Почта: ionserdmi@gmail.com</li>
-                <li>📍 Адрес: улица Пушкина, дом 121</li> 
-            </ul>
-        </section> 
-
-        <section>
-            <h2>Режим работы</h2>
-            <div class="table-wrapper">
-                <table>
-                    <thead><tr><th>День</th><th>Часы</th></tr></thead>
-                    <tbody>
-                        <tr><td>Пн</td><td>10:00 - 18:00</td></tr>
-                        <tr><td>Вт</td><td>10:00 - 18:00</td></tr>
-                        <tr><td>Ср</td><td>10:00 - 18:00</td></tr>
-                        <tr><td>Чт</td><td>10:00 - 18:00</td></tr>
-                        <tr><td>Пт</td><td>10:00 - 16:00</td></tr>
-                        <tr><td>Сб-Вс</td><td>Выходной</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>   
+    <main>
+        <section><h1>Контакты</h1></section>
+        <section><h2>Контактная информация</h2><div id="contact-info"></div></section>
+        <section><h2>Режим работы</h2><div id="working-hours"></div></section>
+        <section><h2>Форма обратной связи</h2><div id="contact-form"></div></section>
     </main>
 
-    <footer>
-        <p>2026 © Ну работает и ладно</p>
-    </footer>   
-    <script src="script.js"></script>   
+    <footer><p>2026 © Ну работает и ладно</p></footer>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
