@@ -1,68 +1,103 @@
-// ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
+// ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
 
-// Получение приветствия по времени
+// ОПРЕДЕЛЕНИЕ ВРЕМЕНИ СУТОК
+// Функция возвращает, какое сейчас время суток: утро, день или вечер
 export const getGreetingByHour = () => {
-    const hour = new Date().getHours();
-    if (hour >= 5 && hour < 12) return 'morning';
-    if (hour >= 12 && hour < 18) return 'afternoon';
-    return 'evening';
+    const currentHour = new Date().getHours();  // Получаем текущий час (0-23)
+    
+    if (currentHour >= 5 && currentHour < 12) {
+        return 'morning';   // Утро: с 5 до 12
+    }
+    if (currentHour >= 12 && currentHour < 18) {
+        return 'afternoon'; // День: с 12 до 18
+    }
+    return 'evening';       // Вечер: с 18 до 5 утра
 };
 
-// Фильтрация проектов (функциональное программирование)
+// ПОИСК ПРОЕКТОВ
+// Фильтрует проекты по поисковому запросу и выбранным технологиям
+// Параметры: 
+//   projects - список всех проектов
+//   filters - объект с настройками фильтрации { search, tech, category }
 export const filterProjects = (projects, filters) => {
+    // Проходим по каждому проекту и проверяем, подходит ли он под фильтры
     return projects.filter(project => {
+        
+        // Проверка 1: Поиск по тексту (название или описание)
         const matchesSearch = !filters.search || 
             project.title.toLowerCase().includes(filters.search.toLowerCase()) ||
             project.description.toLowerCase().includes(filters.search.toLowerCase());
         
+        // Проверка 2: Фильтр по технологиям
         const matchesTech = !filters.tech || filters.tech.length === 0 ||
             filters.tech.some(tech => project.technologies.includes(tech));
         
+        // Проверка 3: Фильтр по категории
         const matchesCategory = !filters.category || filters.category === 'all' ||
             project.category === filters.category;
         
+        // Проект показывается, если он прошел ВСЕ три проверки
         return matchesSearch && matchesTech && matchesCategory;
     });
 };
 
-// Получение всех технологий (используем reduce)
+// ПОЛУЧЕНИЕ ВСЕХ ТЕХНОЛОГИЙ 
+// Собирает все технологии из всех проектов (без повторений)
 export const getAllTechnologies = (projects) => {
-    return projects.reduce((techs, project) => {
+    // Используем reduce для сборки массива технологий
+    return projects.reduce((allTechs, project) => {
+        // Для каждой технологии в проекте
         project.technologies.forEach(tech => {
-            if (!techs.includes(tech)) techs.push(tech);
+            // Если такой технологии ещё нет в списке - добавляем
+            if (!allTechs.includes(tech)) {
+                allTechs.push(tech);
+            }
         });
-        return techs;
-    }, []);
+        return allTechs;
+    }, []); // Начинаем с пустого массива
 };
 
-// Подсчет среднего уровня навыков (используем reduce)
+// СРЕДНИЙ УРОВЕНЬ НАВЫКОВ
+// Вычисляет средний уровень всех навыков
 export const getAverageSkillLevel = (skills) => {
+    // Сначала складываем все уровни (используем reduce)
     const total = skills.reduce((sum, skill) => sum + skill.level, 0);
+    // Делим на количество навыков и округляем до 1 знака
     return (total / skills.length).toFixed(1);
 };
 
-// Debounce для оптимизации поиска
+// ЗАДЕРЖКА ДЛЯ ПОИСКА
+// Используется, чтобы не искать при каждом нажатии клавиши,
+// а подождать, пока пользователь закончит печатать
 export const debounce = (func, delay) => {
-    let timeout;
+    let timer;
     return (...args) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func(...args), delay);
+        clearTimeout(timer);           // Сбрасываем предыдущий таймер
+        timer = setTimeout(() => func(...args), delay); // Запускаем новый
     };
 };
 
-// Работа с хранилищем
+// РАБОТА С ХРАНИЛИЩЕМ (localStorage)
+// Простые функции для сохранения и получения данных
 export const storage = {
+    // Получить данные из localStorage
     get: (key, defaultValue = null) => {
         const value = localStorage.getItem(key);
         try {
+            // Пытаемся превратить текст в объект
             return JSON.parse(value) ?? defaultValue;
         } catch {
+            // Если не получилось - возвращаем как есть
             return value ?? defaultValue;
         }
     },
+    
+    // Сохранить данные в localStorage
     set: (key, value) => {
         localStorage.setItem(key, JSON.stringify(value));
     },
+    
+    // Получить данные из sessionStorage (очищается при закрытии вкладки)
     sessionGet: (key, defaultValue = null) => {
         const value = sessionStorage.getItem(key);
         try {
@@ -71,36 +106,47 @@ export const storage = {
             return value ?? defaultValue;
         }
     },
+    
+    // Сохранить данные в sessionStorage
     sessionSet: (key, value) => {
         sessionStorage.setItem(key, JSON.stringify(value));
     }
 };
 
-// Валидация формы
-export const validateForm = (data) => {
-    const errors = [];
+//  ПРОВЕРКА ФОРМЫ
+// Проверяет, правильно ли пользователь заполнил форму
+export const validateForm = (formData) => {
+    const errors = [];  // Массив для хранения ошибок
     
-    if (!data.fio || data.fio.trim().length < 2) {
+    // Проверка ФИО
+    if (!formData.fio || formData.fio.trim().length < 2) {
         errors.push('ФИО должно содержать минимум 2 символа');
     }
     
-    if (!data.phone) {
+    // Проверка телефона
+    if (!formData.phone) {
         errors.push('Введите номер телефона');
     } else {
-        const phoneClean = data.phone.replace(/[\s+\-()]/g, '');
-        if (phoneClean.length < 10 || phoneClean.length > 12) {
+        // Убираем все лишние символы (пробелы, дефисы, скобки)
+        const cleanPhone = formData.phone.replace(/[\s+\-()]/g, '');
+        if (cleanPhone.length < 10 || cleanPhone.length > 12) {
             errors.push('Введите корректный номер телефона (10-12 цифр)');
         }
     }
     
-    if (!data.date) {
+    // Проверка даты
+    if (!formData.date) {
         errors.push('Выберите дату');
     } else {
         const today = new Date().toISOString().split('T')[0];
-        if (data.date < today) {
+        if (formData.date < today) {
             errors.push('Дата не может быть раньше сегодняшней');
         }
     }
     
-    return { valid: errors.length === 0, errors };
+    // Возвращаем результат: есть ошибки или нет, и список ошибок
+    return {
+        isValid: errors.length === 0,  // true если ошибок нет
+        errors: errors                  // массив с ошибками
+    };
 };

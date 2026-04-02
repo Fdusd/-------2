@@ -1,61 +1,85 @@
-// ========== ГЛАВНЫЙ ФАЙЛ ПРИЛОЖЕНИЯ ==========
+// ГЛАВНЫЙ ФАЙЛ
 import { HomePage, SkillsPage, AboutPage, ContactsPage } from './pages.js';
 import { ThemeToggle } from './components.js';
 import { storage, getGreetingByHour } from './utils.js';
 import { GREETINGS } from './data.js';
 
-// Определение текущей страницы
-const getCurrentPage = () => {
-    const path = window.location.pathname.split('/').pop() || 'main.html';
-    const pages = {
+// ОПРЕДЕЛЯЕМ, КАКАЯ СТРАНИЦА ОТКРЫТА
+// Смотрим на адрес в браузере и возвращаем нужную страницу
+function getCurrentPage() {
+    // Получаем имя файла из адреса (main.html, ISD1.html и т.д.)
+    const currentPath = window.location.pathname.split('/').pop() || 'main.html';
+    
+    // Соответствие между адресом и классом страницы
+    const pagesMap = {
         'main.html': HomePage,
         'ISD1.html': SkillsPage,
         'ISD2.html': AboutPage,
         'contacts.html': ContactsPage
     };
-    const PageClass = pages[path] || HomePage;
+    
+    // Если страница найдена - создаём её, иначе главную
+    const PageClass = pagesMap[currentPath] || HomePage;
     return new PageClass();
-};
+}
 
-// Приветствие
-const showGreeting = () => {
-    if (!storage.sessionGet('greeted')) {
-        const greetingType = getGreetingByHour();
-        alert(GREETINGS[greetingType]);
+// ПРИВЕТСТВИЕ ПРИ ПЕРВОМ ПОСЕЩЕНИИ
+function showGreeting() {
+    // Проверяем, не показывали ли уже приветствие в этой сессии
+    const alreadyGreeted = storage.sessionGet('greeted');
+    
+    if (!alreadyGreeted) {
+        // Определяем время суток и выбираем приветствие
+        const timeOfDay = getGreetingByHour();  // 'morning', 'afternoon' или 'evening'
+        const greetingText = GREETINGS[timeOfDay];
+        
+        alert(greetingText);  // Показываем всплывающее сообщение
+        
+        // Запоминаем, что уже показали
         storage.sessionSet('greeted', true);
     }
-};
+}
 
-// Инициализация
-const init = () => {
-    showGreeting();
-    new ThemeToggle();
+// ПЛАВНОЕ ПОЯВЛЕНИЕ СЕКЦИЙ ПРИ СКРОЛЛЕ
+function setupScrollAnimations() {
+    // Находим все секции на странице
+    const allSections = document.querySelectorAll('section');
     
-    const page = getCurrentPage();
-    page.render();
-    
-    // Анимация секций
-    const sections = document.querySelectorAll('section');
+    // Создаём наблюдатель, который следит за появлением секций
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
+            // Если секция появилась в окне браузера
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.style.opacity = '1';           // Делаем видимой
+                entry.target.style.transform = 'translateY(0)'; // Возвращаем на место
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.1 });  // Срабатывает, когда видно 10% секции
     
-    sections.forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(20px)';
-        section.style.transition = 'all 0.5s ease';
-        observer.observe(section);
+    // Для каждой секции: прячем её и начинаем следить
+    allSections.forEach(section => {
+        section.style.opacity = '0';                // Сначала невидима
+        section.style.transform = 'translateY(20px)'; // Сдвигаем вниз
+        section.style.transition = 'all 0.5s ease';   // Плавный переход
+        observer.observe(section);                   // Начинаем следить
     });
-};
+}
 
-// Запуск
+// ЗАПУСК ВСЕГО САЙТА
+function init() {
+    showGreeting();              // Показываем приветствие
+    
+    new ThemeToggle();          // Создаём кнопку переключения темы
+    
+    const currentPage = getCurrentPage();  // Определяем, какая страница открыта
+    currentPage.render();       // Рисуем эту страницу
+    
+    setupScrollAnimations();    // Настраиваем плавное появление секций
+}
+
+// Ждём, пока страница полностью загрузится, потом запускаем
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
 } else {
-    init();
+    init();  // Если страница уже загружена - запускаем сразу
 }
