@@ -78,7 +78,7 @@ export const WORKING_HOURS = [
 export const USEFUL_LINKS = [
     { url: 'https://www.youtube.com/', title: 'YouTube', icon: '🎬' },
     { url: 'https://github.com/', title: 'GitHub', icon: '💻' },
-    { url: 'https://stackoverflow.com/', title: 'Stack Overflow', icon: '📚' }
+    { url: 'https://rutube.ru/video/f3b615db135287a64584737e664e1e4b/?utm_source=embed&utm_medium=referral&utm_campaign=logo&utm_content=f3b615db135287a64584737e664e1e4b&utm_term=yastatic.net&t=1', title: 'Люимый сайт', icon: '📚' }
 ];
 
 // Приветствия
