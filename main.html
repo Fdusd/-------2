@@ -1,0 +1,126 @@
+<!-- main.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная | Личный сайт</title>
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>          
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="burger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="main.html" class="active">Главная</a></li>
+                <li><a href="ISD1.html">Навыки</a></li>
+                <li><a href="ISD2.html">Обо мне</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+            </ul>
+        </nav>    
+    </header>
+
+    <main> 
+        <section class="hero-mini">
+            <h1>Главная страница</h1>
+            <p><strong>Привет.</strong> Это мой сайт. Это мой персональный сайт.</p>
+            <p>Я изучаю программирование и развиваюсь в IT.</p>
+        </section>
+
+        <section>
+            <h2>Моё фото</h2>
+            <figure class="photo-figure">
+                <img src="image [VQ6mzO].png" alt="Мое фото" class="profile-img">
+                <figcaption>Это я во время работы над сайтом</figcaption>
+            </figure>                             
+        </section>
+
+        <section>
+            <a href="ISD1.html" class="section-link"><h2>Скиллы →</h2></a>              
+            <div class="skills-preview">
+                <p>Я умею:</p>
+                <ul>
+                    <li>Разрабатывать веб-сайты</li>
+                    <li>Программировать на C#</li>
+                    <li>Работать с базами данных</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <a href="ISD2.html" class="section-link"><h2>Обо мне →</h2></a>              
+            <div class="about-preview">
+                <p>Я хочу:</p>
+                <ul>
+                    <li>Стать профессиональным разработчиком</li>
+                    <li>Создавать полезные проекты</li>
+                    <li>Постоянно учиться новому</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Мои проекты</h2>
+            <div class="cards">
+                <div class="card">
+                    <img src="tomat.jpg" alt="Проект 1">
+                    <h3>Портфолио сайт</h3>
+                    <p>Личный сайт с адаптивной версткой</p>
+                    <div class="tech-tags">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JS</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="#">Посмотреть проект</a>
+                        <a href="#">GitHub</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="Kiwi.jpg" alt="Проект 2">
+                    <h3>Учёт оборудования</h3>
+                    <p>Программа для учета техники</p>
+                    <div class="tech-tags">
+                        <span>C#</span>
+                        <span>WinForms</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="#">Посмотреть проект</a>
+                        <a href="#">GitHub</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="tomat.jpg" alt="Проект 3">
+                    <h3>Новый проект</h3>
+                    <p>Скоро здесь появится что-то интересное</p>
+                    <div class="tech-tags">
+                        <span>React</span>
+                        <span>Node.js</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="#">Скоро</a>
+                        <a href="#">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="links-section">
+            <h2>Полезные ссылки</h2>
+            <a href="https://www.youtube.com/" target="_blank" class="external-link">Мой любимый сайт (YouTube)</a>
+            <a href="https://rutube.ru/video/be9b5aece2911aecc68fa03942e25bac/" target="_blank" class="external-link">Узнать больше о веб-разработке</a>
+        </section>    
+    </main>
+
+    <footer>
+        <p>2026 © Ну работает и ладно.</p>
+    </footer> 
+    <script src="script.js"></script>
+</body>
+</html>
